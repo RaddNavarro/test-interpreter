@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
@@ -15,17 +13,17 @@ public enum NodeType
     Unknown,
 }
 
-public class Statement
+public abstract class Statement
 {
-    public NodeType kind;
+    public abstract NodeType kind { get; }
 }
 
 
 public class Program : Statement
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public new NodeType kind = NodeType.Program;
-    public List<Statement> body = new();
+    public override NodeType kind => NodeType.Program;
+    public List<Statement> body = new List<Statement>();
 }
 
 public abstract class Expr : Statement { }
@@ -34,7 +32,7 @@ public class BinaryExpr : Expr
 {
 
     [JsonConverter(typeof(StringEnumConverter))]
-    public new NodeType kind = NodeType.BinaryExpr;
+    public override NodeType kind => NodeType.BinaryExpr;
     public Expr left { get; }
     public Expr right { get; }
     public string Operator { get; }
@@ -50,7 +48,7 @@ public class BinaryExpr : Expr
 public class Identifier : Expr
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public new NodeType kind = NodeType.Identifier;
+    public override NodeType kind => NodeType.Identifier;
     public string symbol { get; }
 
     public Identifier(string symbol)
@@ -62,7 +60,7 @@ public class Identifier : Expr
 public class NumericLiteral : Expr
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public new NodeType kind = NodeType.NumericLiteral;
+    public override NodeType kind => NodeType.NumericLiteral;
     public double value { get; }
 
     public NumericLiteral(double value)
@@ -71,10 +69,11 @@ public class NumericLiteral : Expr
     }
 }
 
+
 public class Unknown : Expr
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public new NodeType kind = NodeType.Unknown;
+    public override NodeType kind => NodeType.Unknown;
 
     public TokenType type { get; }
     public string value { get; }

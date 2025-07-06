@@ -1,21 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using lexer;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Purchasing;
 using UnityEngine;
 
 public class Parser : MonoBehaviour
 {
-    public Statement statement;
-    public Program program;
-    public Expr expr;
-    public BinaryExpr binaryExpr;
-    public NumericLiteral numericLiteral;
-    public Identifier identifier;
     public Lexer lexer;
 
     private List<Token> tokens = new List<Token>();
@@ -117,7 +105,7 @@ public class Parser : MonoBehaviour
 
         }
     }
-    public Program produceAST(string sourceCode)
+    public Program ProduceAST(string sourceCode)
     {
         this.tokens = lexer.tokenize(sourceCode);
 

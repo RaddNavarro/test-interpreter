@@ -13,11 +13,11 @@ public class TerminalManager : MonoBehaviour
     public GameObject userInputLine;
     public ScrollRect scrollRect;
     public GameObject msgList;
-    Interpreter interpreter;
+    Interpret interpreter;
 
     private void Start()
     {
-        interpreter = GetComponent<Interpreter>();
+        interpreter = GetComponent<Interpret>();
     }
     public void OnGUI()
     {
@@ -28,7 +28,7 @@ public class TerminalManager : MonoBehaviour
             ClearInputField();
             AddDirectoryLine(userInput);
 
-            int lines = AddInterpreterLines(interpreter.Interpret(userInput));
+            int lines = AddInterpreterLines(interpreter.ProcessInterpret(userInput));
 
             ScrollToBottom(lines);
             userInputLine.transform.SetAsLastSibling();
