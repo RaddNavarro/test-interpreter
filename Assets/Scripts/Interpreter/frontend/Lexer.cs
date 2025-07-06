@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
 using lexer;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.UIElements.Experimental;
 
 
 namespace lexer
@@ -14,6 +10,7 @@ namespace lexer
     {
         NUMBER,
         IDENTIFIER,
+        STRING,
         EQUALS,
 
         OPEN_PAREN, CLOSE_PAREN,
@@ -44,7 +41,7 @@ public class Lexer : MonoBehaviour
     private Dictionary<string, TokenType> KEYWORDS = new Dictionary<string, TokenType>
     {
         {"let", TokenType.LET},
-        {"if", TokenType.IF}
+        {"if", TokenType.IF},
      };
     //    private void Start()
     //    {
